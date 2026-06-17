@@ -1,0 +1,196 @@
+Microsoft Windows [versão 10.0.19045.6466]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Solange>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 49
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| loja               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> use loja
+Database changed
+MariaDB [loja]> show tables;
++----------------+
+| Tables_in_loja |
++----------------+
+| categorias     |
+| produtos       |
++----------------+
+2 rows in set (0.000 sec)
+
+MariaDB [loja]> desc categorias;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_categoria | int(11)      | NO   | PRI | NULL    | auto_increment |
+| categoria    | varchar(255) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.012 sec)
+
+MariaDB [loja]> desc produtos;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| id_produto    | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome          | varchar(255)  | NO   |     | NULL    |                |
+| preco         | decimal(10,2) | NO   |     | NULL    |                |
+| quant         | int(11)       | NO   |     | NULL    |                |
+| marca         | varchar(255)  | NO   |     | NULL    |                |
+| observacoes   | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria  | int(11)       | YES  | MUL | NULL    |                |
+| data_cadastro | date          | YES  |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.009 sec)
+
+MariaDB [loja]> insert into categorias (categoria)
+    -> values
+    -> ('Eletrônicos'),
+    -> ('Roupas'),
+    -> ('Hortifrutti'),
+    -> ('Padaria'),
+    -> ('Beleza'),
+    -> ('Laticínios'),
+    -> ('Açougue'),
+    -> ('Farmácia');
+Query OK, 8 rows affected (0.002 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> SELECT * FROM categorias;
++--------------+-------------+
+| id_categoria | categoria   |
++--------------+-------------+
+|            1 | Eletrônicos |
+|            2 | Roupas      |
+|            3 | Hortifrutti |
+|            4 | Padaria     |
+|            5 | Beleza      |
+|            6 | Laticínios  |
+|            7 | Açougue     |
+|            8 | Farmácia    |
++--------------+-------------+
+8 rows in set (0.000 sec)
+
+MariaDB [loja]> insert into produtos(id_categoria, nome, preco, quant, marca, observacoes, data_cadastro)
+    -> values
+    -> (1, 'Notebook Dell', 4500.00, 10 'Dell', 'i5 16GB RAM', '2026-06-17'),
+    -> (1, 'Smartphone Galaxy', 2200.00, 8 'Samsung', '', '2026-06-17'),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''Dell', 'i5 16GB RAM', '2026-06-17'),
+(1, 'Smartphone Galaxy', 2200.00, 8 'Sa...' at line 3
+MariaDB [loja]> insert into produtos(id_categoria, nome, preco, quant, marca, observacoes, data_cadastro)
+    -> values
+    -> (1, 'Notebook Dell', 4500.00, 10, 'Dell', 'i5 16GB RAM', '2026-06-17'),
+    -> (1, 'Smartphone Galaxy', 2200.00, 8, 'Samsung', '', '2026-06-17');
+Query OK, 2 rows affected (0.001 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> ALTER TABLE produtos MODIFY marca VARCHAR(255) NULL;
+Query OK, 0 rows affected (0.034 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> desc produtos;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| id_produto    | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome          | varchar(255)  | NO   |     | NULL    |                |
+| preco         | decimal(10,2) | NO   |     | NULL    |                |
+| quant         | int(11)       | NO   |     | NULL    |                |
+| marca         | varchar(255)  | YES  |     | NULL    |                |
+| observacoes   | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria  | int(11)       | YES  | MUL | NULL    |                |
+| data_cadastro | date          | YES  |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.010 sec)
+
+MariaDB [loja]> insert into produtos(id_categoria, nome, preco, quant, marca, observacoes, data_cadastro)
+    -> values
+    -> (2, 'Calça Jeans', 90.00, 25, 'Levis', 'Jeans lavagem clara', '2026-06-17'),
+    -> (2, 'Jaqueta', 130.00, 25, 'Adidas', 'Preta', '2026-06-17');
+Query OK, 2 rows affected (0.001 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> insert into produtos(id_categoria, nome, preco, quant, marca, observacoes, data_cadastro)
+    -> values
+    -> (3, 'Batata', 5.50, 140, '', 'Venda por kg', '2026-06-17'),
+    -> (3, 'Banana', 10.00, 50, '', 'Venda por dúzia', '2026-06-17');
+Query OK, 2 rows affected (0.001 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> insert into produtos(id_categoria, nome, preco, quant, marca, observacoes, data_cadastro)
+    -> values
+    -> (4, 'Pão de Queijo', 22.00, 40, 'Forno de Minas', '', '2026-06-17'),
+    -> (4, 'Bolo de Chocolate', 35.00, 8, 'Dona Benta', '500kg', '2026-06-17');
+Query OK, 2 rows affected (0.001 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> insert into produtos(id_categoria, nome, preco, quant, marca, observacoes, data_cadastro)
+    -> values
+    -> (5, 'Shampoo', 24.00, 40, 'Elseve', '300ml', '2026-06-17'),
+    -> (5, 'Condicionador', 26.00, 35, 'Elseve', '300ml', '2026-06-17');
+Query OK, 2 rows affected (0.002 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> insert into produtos(id_categoria, nome, preco, quant, marca, observacoes, data_cadastro)
+    -> values
+    -> (6, 'Queijo', 50.00, 30, 'President', 'Peça de 1kg', '2026-06-17'),
+    -> (6, 'Leite', 4.00, 60, 'Itambé', 'Caixa de 1 litro', '2026-06-17');
+Query OK, 2 rows affected (0.001 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> insert into produtos(id_categoria, nome, preco, quant, marca, observacoes, data_cadastro)
+    -> values
+    -> (7, 'Linguiça', 24.00, 25, 'Sadia', 'Toscana 1kg', '2026-06-17'),
+    -> (7, 'Carne', 50.00, 30, 'Friboi', '', '2026-06-17');
+Query OK, 2 rows affected (0.013 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> insert into produtos(id_categoria, nome, preco, quant, marca, observacoes, data_cadastro)
+    -> values
+    -> (8, 'Dipirona', 9.00, 60, 'Neo Química', 'Caixa 20 comprimidos', '2026-06-17'),
+    -> (8, 'Paracetamol', 13.00, 50, 'Cimed', 'Caixa 20 comprimidos', '2026-06-17');
+Query OK, 2 rows affected (0.002 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> select * from produtos;
++------------+-------------------+---------+-------+----------------+----------------------+--------------+---------------+
+| id_produto | nome              | preco   | quant | marca          | observacoes          | id_categoria | data_cadastro |
++------------+-------------------+---------+-------+----------------+----------------------+--------------+---------------+
+|          1 | Notebook Dell     | 4500.00 |    10 | Dell           | i5 16GB RAM          |            1 | 2026-06-17    |
+|          2 | Smartphone Galaxy | 2200.00 |     8 | Samsung        |                      |            1 | 2026-06-17    |
+|          3 | Calça Jeans       |   90.00 |    25 | Levis          | Jeans lavagem clara  |            2 | 2026-06-17    |
+|          4 | Jaqueta           |  130.00 |    25 | Adidas         | Preta                |            2 | 2026-06-17    |
+|          5 | Batata            |    5.50 |   140 |                | Venda por kg         |            3 | 2026-06-17    |
+|          6 | Banana            |   10.00 |    50 |                | Venda por dúzia      |            3 | 2026-06-17    |
+|          7 | Pão de Queijo     |   22.00 |    40 | Forno de Minas |                      |            4 | 2026-06-17    |
+|          8 | Bolo de Chocolate |   35.00 |     8 | Dona Benta     | 500kg                |            4 | 2026-06-17    |
+|          9 | Shampoo           |   24.00 |    40 | Elseve         | 300ml                |            5 | 2026-06-17    |
+|         10 | Condicionador     |   26.00 |    35 | Elseve         | 300ml                |            5 | 2026-06-17    |
+|         11 | Queijo            |   50.00 |    30 | President      | Peça de 1kg          |            6 | 2026-06-17    |
+|         12 | Leite             |    4.00 |    60 | Itambé         | Caixa de 1 litro     |            6 | 2026-06-17    |
+|         13 | Linguiça          |   24.00 |    25 | Sadia          | Toscana 1kg          |            7 | 2026-06-17    |
+|         14 | Carne             |   50.00 |    30 | Friboi         |                      |            7 | 2026-06-17    |
+|         15 | Dipirona          |    9.00 |    60 | Neo Química    | Caixa 20 comprimidos |            8 | 2026-06-17    |
+|         16 | Paracetamol       |   13.00 |    50 | Cimed          | Caixa 20 comprimidos |            8 | 2026-06-17    |
++------------+-------------------+---------+-------+----------------+----------------------+--------------+---------------+
+16 rows in set (0.000 sec)
+
+MariaDB [loja]>
