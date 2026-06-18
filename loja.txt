@@ -194,3 +194,277 @@ MariaDB [loja]> select * from produtos;
 16 rows in set (0.000 sec)
 
 MariaDB [loja]>
+
+Microsoft Windows [versão 10.0.19045.4355]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Aluno>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 36
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| loja               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> use loja;
+Database changed
+MariaDB [loja]> show tables;
++----------------+
+| Tables_in_loja |
++----------------+
+| categorias     |
+| produtos       |
++----------------+
+2 rows in set (0.000 sec)
+
+MariaDB [loja]> desc categorias;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_categoria | int(11)      | NO   | PRI | NULL    | auto_increment |
+| categoria    | varchar(255) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.020 sec)
+
+MariaDB [loja]> desc produtos;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| id_produto    | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome          | varchar(255)  | NO   |     | NULL    |                |
+| preco         | decimal(10,2) | NO   |     | NULL    |                |
+| quant         | int(11)       | NO   |     | NULL    |                |
+| marca         | varchar(255)  | YES  |     | NULL    |                |
+| observacoes   | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria  | int(11)       | YES  | MUL | NULL    |                |
+| data_cadastro | date          | YES  |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.019 sec)
+
+MariaDB [loja]> select * from produtos;
++------------+-------------------+---------+-------+----------------+----------------------+--------------+---------------+
+| id_produto | nome              | preco   | quant | marca          | observacoes          | id_categoria | data_cadastro |
++------------+-------------------+---------+-------+----------------+----------------------+--------------+---------------+
+|          1 | Notebook Dell     | 4500.00 |    10 | Dell           | i5 16GB RAM          |            1 | 2026-06-17    |
+|          2 | Smartphone Galaxy | 2200.00 |     8 | Samsung        |                      |            1 | 2026-06-17    |
+|          3 | Calça Jeans       |   90.00 |    25 | Levis          | Jeans lavagem clara  |            2 | 2026-06-17    |
+|          4 | Jaqueta           |  130.00 |    25 | Adidas         | Preta                |            2 | 2026-06-17    |
+|          5 | Batata            |    5.50 |   140 |                | Venda por kg         |            3 | 2026-06-17    |
+|          6 | Banana            |   10.00 |    50 |                | Venda por dúzia      |            3 | 2026-06-17    |
+|          7 | Pão de Queijo     |   22.00 |    40 | Forno de Minas |                      |            4 | 2026-06-17    |
+|          8 | Bolo de Chocolate |   35.00 |     8 | Dona Benta     | 500kg                |            4 | 2026-06-17    |
+|          9 | Shampoo           |   24.00 |    40 | Elseve         | 300ml                |            5 | 2026-06-17    |
+|         10 | Condicionador     |   26.00 |    35 | Elseve         | 300ml                |            5 | 2026-06-17    |
+|         11 | Queijo            |   50.00 |    30 | President      | Peça de 1kg          |            6 | 2026-06-17    |
+|         12 | Leite             |    4.00 |    60 | Itambé         | Caixa de 1 litro     |            6 | 2026-06-17    |
+|         13 | Linguiça          |   24.00 |    25 | Sadia          | Toscana 1kg          |            7 | 2026-06-17    |
+|         14 | Carne             |   50.00 |    30 | Friboi         |                      |            7 | 2026-06-17    |
+|         15 | Dipirona          |    9.00 |    60 | Neo Química    | Caixa 20 comprimidos |            8 | 2026-06-17    |
+|         16 | Paracetamol       |   13.00 |    50 | Cimed          | Caixa 20 comprimidos |            8 | 2026-06-17    |
++------------+-------------------+---------+-------+----------------+----------------------+--------------+---------------+
+16 rows in set (0.000 sec)
+
+MariaDB [loja]> select nome, preco from produtos;
++-------------------+---------+
+| nome              | preco   |
++-------------------+---------+
+| Notebook Dell     | 4500.00 |
+| Smartphone Galaxy | 2200.00 |
+| Calça Jeans       |   90.00 |
+| Jaqueta           |  130.00 |
+| Batata            |    5.50 |
+| Banana            |   10.00 |
+| Pão de Queijo     |   22.00 |
+| Bolo de Chocolate |   35.00 |
+| Shampoo           |   24.00 |
+| Condicionador     |   26.00 |
+| Queijo            |   50.00 |
+| Leite             |    4.00 |
+| Linguiça          |   24.00 |
+| Carne             |   50.00 |
+| Dipirona          |    9.00 |
+| Paracetamol       |   13.00 |
++-------------------+---------+
+16 rows in set (0.001 sec)
+
+MariaDB [loja]> select * from produtos where maraca = 'Samsung';
+ERROR 1054 (42S22): Unknown column 'maraca' in 'where clause'
+MariaDB [loja]> select * from produtos where marca = 'Samsung';
++------------+-------------------+---------+-------+---------+-------------+--------------+---------------+
+| id_produto | nome              | preco   | quant | marca   | observacoes | id_categoria | data_cadastro |
++------------+-------------------+---------+-------+---------+-------------+--------------+---------------+
+|          2 | Smartphone Galaxy | 2200.00 |     8 | Samsung |             |            1 | 2026-06-17    |
++------------+-------------------+---------+-------+---------+-------------+--------------+---------------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> select * from produtos where preco > 20;
++------------+-------------------+---------+-------+----------------+---------------------+--------------+---------------+
+| id_produto | nome              | preco   | quant | marca          | observacoes         | id_categoria | data_cadastro |
++------------+-------------------+---------+-------+----------------+---------------------+--------------+---------------+
+|          1 | Notebook Dell     | 4500.00 |    10 | Dell           | i5 16GB RAM         |            1 | 2026-06-17    |
+|          2 | Smartphone Galaxy | 2200.00 |     8 | Samsung        |                     |            1 | 2026-06-17    |
+|          3 | Calça Jeans       |   90.00 |    25 | Levis          | Jeans lavagem clara |            2 | 2026-06-17    |
+|          4 | Jaqueta           |  130.00 |    25 | Adidas         | Preta               |            2 | 2026-06-17    |
+|          7 | Pão de Queijo     |   22.00 |    40 | Forno de Minas |                     |            4 | 2026-06-17    |
+|          8 | Bolo de Chocolate |   35.00 |     8 | Dona Benta     | 500kg               |            4 | 2026-06-17    |
+|          9 | Shampoo           |   24.00 |    40 | Elseve         | 300ml               |            5 | 2026-06-17    |
+|         10 | Condicionador     |   26.00 |    35 | Elseve         | 300ml               |            5 | 2026-06-17    |
+|         11 | Queijo            |   50.00 |    30 | President      | Peça de 1kg         |            6 | 2026-06-17    |
+|         13 | Linguiça          |   24.00 |    25 | Sadia          | Toscana 1kg         |            7 | 2026-06-17    |
+|         14 | Carne             |   50.00 |    30 | Friboi         |                     |            7 | 2026-06-17    |
++------------+-------------------+---------+-------+----------------+---------------------+--------------+---------------+
+11 rows in set (0.001 sec)
+
+MariaDB [loja]> select * from produtos where preco < 20;
++------------+-------------+-------+-------+-------------+----------------------+--------------+---------------+
+| id_produto | nome        | preco | quant | marca       | observacoes          | id_categoria | data_cadastro |
++------------+-------------+-------+-------+-------------+----------------------+--------------+---------------+
+|          5 | Batata      |  5.50 |   140 |             | Venda por kg         |            3 | 2026-06-17    |
+|          6 | Banana      | 10.00 |    50 |             | Venda por dúzia      |            3 | 2026-06-17    |
+|         12 | Leite       |  4.00 |    60 | Itambé      | Caixa de 1 litro     |            6 | 2026-06-17    |
+|         15 | Dipirona    |  9.00 |    60 | Neo Química | Caixa 20 comprimidos |            8 | 2026-06-17    |
+|         16 | Paracetamol | 13.00 |    50 | Cimed       | Caixa 20 comprimidos |            8 | 2026-06-17    |
++------------+-------------+-------+-------+-------------+----------------------+--------------+---------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> select * from produtos where preco <= 60;
++------------+-------------------+-------+-------+----------------+----------------------+--------------+---------------+
+| id_produto | nome              | preco | quant | marca          | observacoes          | id_categoria | data_cadastro |
++------------+-------------------+-------+-------+----------------+----------------------+--------------+---------------+
+|          5 | Batata            |  5.50 |   140 |                | Venda por kg         |            3 | 2026-06-17    |
+|          6 | Banana            | 10.00 |    50 |                | Venda por dúzia      |            3 | 2026-06-17    |
+|          7 | Pão de Queijo     | 22.00 |    40 | Forno de Minas |                      |            4 | 2026-06-17    |
+|          8 | Bolo de Chocolate | 35.00 |     8 | Dona Benta     | 500kg                |            4 | 2026-06-17    |
+|          9 | Shampoo           | 24.00 |    40 | Elseve         | 300ml                |            5 | 2026-06-17    |
+|         10 | Condicionador     | 26.00 |    35 | Elseve         | 300ml                |            5 | 2026-06-17    |
+|         11 | Queijo            | 50.00 |    30 | President      | Peça de 1kg          |            6 | 2026-06-17    |
+|         12 | Leite             |  4.00 |    60 | Itambé         | Caixa de 1 litro     |            6 | 2026-06-17    |
+|         13 | Linguiça          | 24.00 |    25 | Sadia          | Toscana 1kg          |            7 | 2026-06-17    |
+|         14 | Carne             | 50.00 |    30 | Friboi         |                      |            7 | 2026-06-17    |
+|         15 | Dipirona          |  9.00 |    60 | Neo Química    | Caixa 20 comprimidos |            8 | 2026-06-17    |
+|         16 | Paracetamol       | 13.00 |    50 | Cimed          | Caixa 20 comprimidos |            8 | 2026-06-17    |
++------------+-------------------+-------+-------+----------------+----------------------+--------------+---------------+
+12 rows in set (0.001 sec)
+
+MariaDB [loja]> select nome, preco from produtos order by preco asc limit 5;
++-------------+-------+
+| nome        | preco |
++-------------+-------+
+| Leite       |  4.00 |
+| Batata      |  5.50 |
+| Dipirona    |  9.00 |
+| Banana      | 10.00 |
+| Paracetamol | 13.00 |
++-------------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> select nome, preco from produtos order by preco desc limit 5;
++-------------------+---------+
+| nome              | preco   |
++-------------------+---------+
+| Notebook Dell     | 4500.00 |
+| Smartphone Galaxy | 2200.00 |
+| Jaqueta           |  130.00 |
+| Calça Jeans       |   90.00 |
+| Queijo            |   50.00 |
++-------------------+---------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> select count(*) as totalprodutos from produtos;
++---------------+
+| totalprodutos |
++---------------+
+|            16 |
++---------------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> select avg(preco) as precomedio from produtos;
++------------+
+| precomedio |
++------------+
+| 449.531250 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> select nome, quant from produtos order by quant desc limit 1;
++--------+-------+
+| nome   | quant |
++--------+-------+
+| Batata |   140 |
++--------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> select p.nome, c.nome_cat from produtos p join categorias c on p.idcategoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.nome_cat' in 'field list'
+MariaDB [loja]> select p.nome, c.categoria from produtos p join categorias c on p.idcategoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [loja]> SELECT p.nome, c.nome_cat FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.nome_cat' in 'field list'
+MariaDB [loja]> SELECT p.nome, c.categorias FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.categorias' in 'field list'
+MariaDB [loja]> SELECT p.nome, c.categoria FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
++-------------------+-------------+
+| nome              | categoria   |
++-------------------+-------------+
+| Notebook Dell     | Eletrônicos |
+| Smartphone Galaxy | Eletrônicos |
+| Calça Jeans       | Roupas      |
+| Jaqueta           | Roupas      |
+| Batata            | Hortifrutti |
+| Banana            | Hortifrutti |
+| Pão de Queijo     | Padaria     |
+| Bolo de Chocolate | Padaria     |
+| Shampoo           | Beleza      |
+| Condicionador     | Beleza      |
+| Queijo            | Laticínios  |
+| Leite             | Laticínios  |
+| Linguiça          | Açougue     |
+| Carne             | Açougue     |
+| Dipirona          | Farmácia    |
+| Paracetamol       | Farmácia    |
++-------------------+-------------+
+16 rows in set (0.001 sec)
+
+MariaDB [loja]> select p.nome, p.marca, p.preco from produtos p join categorias c on p.id_categoria = c.id_categoria where c.categoria = 'Laticínios';
++--------+-----------+-------+
+| nome   | marca     | preco |
++--------+-----------+-------+
+| Queijo | President | 50.00 |
+| Leite  | Itambé    |  4.00 |
++--------+-----------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [loja]> select c.categoria, count(*) as totalprodutos from produtos p join categorias c on p.idcategoria = c.id_categoria group by c.categoria;
+ERROR 1054 (42S22): Unknown column 'p.idcategoria' in 'on clause'
+MariaDB [loja]> select c.categoria, count(*) as totalprodutos from produtos p join categorias c on p.id_categoria = c.id_categoria group by c.categoria;
++-------------+---------------+
+| categoria   | totalprodutos |
++-------------+---------------+
+| Açougue     |             2 |
+| Beleza      |             2 |
+| Eletrônicos |             2 |
+| Farmácia    |             2 |
+| Hortifrutti |             2 |
+| Laticínios  |             2 |
+| Padaria     |             2 |
+| Roupas      |             2 |
++-------------+---------------+
+8 rows in set (0.001 sec)
+
+MariaDB [loja]>
